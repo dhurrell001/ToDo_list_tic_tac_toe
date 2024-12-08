@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 
-// Create a pressable tile, recieves  props and handle press state toggle function
+// Create a pressable tile, recieves handle press state toggle function
 // from toDoGrid
 export default function ToDoTile({ id, text, handlePress, pressed }) {
   return (
@@ -18,7 +18,6 @@ export default function ToDoTile({ id, text, handlePress, pressed }) {
 
 const styles = StyleSheet.create({
   tile: {
-    backgroundColor: "blue",
     padding: 2,
     marginVertical: 5,
     marginHorizontal: 5,

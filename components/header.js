@@ -7,11 +7,11 @@ import ExampleImage from "../assets/todoImage.png";
 export default function Header() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>TO-DO TOE</Text>
+      <Text style={styles.text}> 🎉TO-DO TOE 🎉</Text>
       <Text style={styles.paragraph}>
-        "Welcome to To-Do Toe! 🎉 It's like Tic-Tac-Toe, but with a
-        twist—complete tasks to get three in a row, or go for the ultimate goal:
-        a full house! Ready to check off your tasks and claim victory?"
+        "Welcome to To-Do Toe! It's like Tic-Tac-Toe, but with a twist—complete
+        tasks to get three in a row, or go for the ultimate goal: a full house!
+        Ready to check off your tasks and claim victory?"
       </Text>
     </View>
   );

@@ -3,11 +3,17 @@ import { StyleSheet, Text, View } from "react-native";
 import ToDoTile from "./components/toDoTile";
 import ToDoGrid from "./components/toDoGrid";
 import Header from "./components/header";
+import { useState } from "react";
+import WinnerText from "./components/winnerText";
+
 export default function App() {
+  const [winner, setWinner] = useState(false); // State to track winner
+
   return (
     <View style={styles.container}>
       <Header />
-      <ToDoGrid />
+      <ToDoGrid setWinner={setWinner} />
+      {winner && <WinnerText />}
     </View>
   );
 }

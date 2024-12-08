@@ -4,7 +4,7 @@ import ToDoTile from "./toDoTile";
 import { useState } from "react";
 import GameLogic from "./GameLogic"; // Import GameLogic component
 
-export default function ToDoGrid() {
+export default function ToDoGrid({ setWinner }) {
   // Initialize tiles with id, text content and 'pressed' state
   const [tiles, setTiles] = useState([
     { id: "1", text: "Washing up", pressed: false },
@@ -40,16 +40,18 @@ export default function ToDoGrid() {
         />
       ))}
 
-      {/* Render GameLogic and pass tiles and setTiles to it */}
-      <GameLogic tiles={tiles} setTiles={setTiles} />
+      {/* send data to gamelogic and pass through setWinner state */}
+      <GameLogic tiles={tiles} setTiles={setTiles} setWinner={setWinner} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "darkslategrey",
+    backgroundColor: "darlslategrey",
     flexWrap: "wrap",
     flexDirection: "row",
+    alignContent: "flex-start",
+    justifyContent: "space-between",
   },
 });

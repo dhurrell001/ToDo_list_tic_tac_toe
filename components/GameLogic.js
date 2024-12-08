@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import WinnerText from "./winnerText";
 
-export default function GameLogic({ tiles, setTiles }) {
+export default function GameLogic({ tiles, setWinner, setTiles }) {
   // State to track if a winner has been found
   const [winnerFound, setWinnerFound] = useState(false);
 
@@ -11,6 +11,7 @@ export default function GameLogic({ tiles, setTiles }) {
   useEffect(() => {
     const checkWinningConditions = () => {
       const winningCombinations = [
+        ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
         ["1", "2", "3"], // Example combination: tiles 1, 2, 3 in a row
         ["4", "5", "6"], // Tiles 4, 5, 6
         ["7", "8", "9"],
@@ -31,17 +32,17 @@ export default function GameLogic({ tiles, setTiles }) {
         // of pressed tiles is true set winner variable to true, of not
         // set winner variable to false and remove 'Winner' message
         if (pressedTiles) {
-          setWinnerFound(true);
+          setWinner(true);
 
           return; // Exit early once a winning condition is met
         } else {
-          setWinnerFound(false);
+          setWinner(false);
         }
       }
     };
 
     checkWinningConditions(); // Call the function whenever tiles state changes
-  }, [tiles]); // Dependency array with tiles, so it runs whenever tiles change
+  }, [tiles, setWinner]); // Dependency array with tiles, so it runs whenever tiles change
 
-  return <>{winnerFound ? <WinnerText /> : <Text></Text>}</>; // Conditionally render WinnerText depending on state of winner variable
+  return null;
 }

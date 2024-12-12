@@ -7,13 +7,19 @@ import { useState } from "react";
 import WinnerText from "./components/winnerText";
 
 export default function App() {
-  const [winner, setWinner] = useState(false); // State to track winner
-
+  const [winner, setWinner] = useState(false); // State to three in row winner
+  const [FullHouseWinner, setFullHouseWinner] = useState(false); // state to check fullhouse winner
   return (
     <View style={styles.container}>
       <Header />
-      <ToDoGrid setWinner={setWinner} />
-      {winner && <WinnerText />}
+      <ToDoGrid
+        setWinner={setWinner}
+        Winner={winner}
+        FullHouseWinner={FullHouseWinner}
+        setFullHouseWinner={setFullHouseWinner}
+      />
+      {winner && <WinnerText setWinner={setWinner} />}
+      {FullHouseWinner && <WinnerText setWinner={setWinner} />}
     </View>
   );
 }

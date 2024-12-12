@@ -4,7 +4,12 @@ import ToDoTile from "./toDoTile";
 import { useState, useEffect } from "react";
 import GameLogic from "./GameLogic"; // Import GameLogic component
 
-export default function ToDoGrid({ setWinner }) {
+export default function ToDoGrid({
+  setWinner,
+  Winner,
+  FullHouseWinner,
+  setFullHouseWinner,
+}) {
   // Initialize tiles with id, text content and 'pressed' state
   const [tiles, setTiles] = useState([
     { id: "1", text: "Washing up", pressed: false },
@@ -58,8 +63,9 @@ export default function ToDoGrid({ setWinner }) {
   const [selectedTasks, setSelectedTasks] = useState([]);
 
   useEffect(() => {
-    // Example: Randomly select a task list
-    //   const keys = Object.keys(taskLists);
+    // Randomly select a task list. Then map the list using random number as
+    // its index to the selected task state, adding the booleon pressed parameter
+
     const randomNumber = Math.floor(Math.random() * todoTaskLists.length);
     console.log(`number ${randomNumber}`);
     setSelectedTasks(
@@ -69,13 +75,13 @@ export default function ToDoGrid({ setWinner }) {
   // Function to toggle the pressed state of a tile. This
   // function is passed to each tile on creation
   const togglePressed = (id) => {
-    setTiles(
-      tiles.map((tile) =>
+    setSelectedTasks(
+      selectedTasks.map((tile) =>
         tile.id === id ? { ...tile, pressed: !tile.pressed } : tile
       )
     );
   };
-  // use map to go through each tile in tiles state array and create
+  // use map to go through each tile in selectedTask state  and create
   // a new tile, assign values accordingly.
   return (
     <View style={styles.container}>
@@ -90,14 +96,21 @@ export default function ToDoGrid({ setWinner }) {
       ))}
 
       {/* send data to gamelogic and pass through setWinner state */}
-      <GameLogic tiles={tiles} setTiles={setTiles} setWinner={setWinner} />
+      <GameLogic
+        tiles={selectedTasks}
+        setTiles={setTiles}
+        setWinner={setWinner}
+        Winner={Winner}
+        FullHouseWinner={FullHouseWinner}
+        setFullHouseWinner={setFullHouseWinner}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "darlslategrey",
+    backgroundColor: "darkslategrey",
     flexWrap: "wrap",
     flexDirection: "row",
     alignContent: "flex-start",

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from "react-native-confetti-cannon";
 
-export default function WinnerText() {
+export default function WinnerText({ setWinner }) {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showMessage, setShowMessage] = useState(true);
 
@@ -13,8 +13,8 @@ export default function WinnerText() {
     const timer = setTimeout(() => {
       setShowConfetti(false); // Stop showing confetti
       setShowMessage(false); // Hide the winner message
+      // setWinner(false);
     }, 4000); // Adjust timeout duration to match confetti duration (in ms)
-
     return () => clearTimeout(timer); // Cleanup timeout on unmount
   }, []);
 

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import ConfettiCannon from "react-native-confetti-cannon";
+import { GameContext } from "../contexts/GameContext";
 
-export default function WinnerText({ setWinner }) {
+export default function WinnerText() {
   const [showConfetti, setShowConfetti] = useState(false);
+  // const [setWinner] = useState(true);
+  const { setWinner, setFullHouseWinner } = useContext(GameContext);
   const [showMessage, setShowMessage] = useState(true);
-
   useEffect(() => {
     // Trigger confetti and start timer to hide message
     setShowConfetti(true);

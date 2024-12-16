@@ -1,26 +1,31 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import ToDoTile from "./components/toDoTile";
+
 import ToDoGrid from "./components/toDoGrid";
 import Header from "./components/header";
-import { useState } from "react";
 import WinnerText from "./components/winnerText";
+import { GameProvider, GameContext } from "./contexts/GameContext";
+import { useContext } from "react";
 
-export default function App() {
-  const [winner, setWinner] = useState(false); // State to three in row winner
-  const [FullHouseWinner, setFullHouseWinner] = useState(false); // state to check fullhouse winner
+// Function to create app content, This allows the component
+// to be simply wrapped in GameProvider wrapper below
+function AppContent() {
+  const { winner, FullHouseWinner } = useContext(GameContext);
+
   return (
     <View style={styles.container}>
       <Header />
-      <ToDoGrid
-        setWinner={setWinner}
-        Winner={winner}
-        FullHouseWinner={FullHouseWinner}
-        setFullHouseWinner={setFullHouseWinner}
-      />
-      {winner && <WinnerText setWinner={setWinner} />}
-      {FullHouseWinner && <WinnerText setWinner={setWinner} />}
+      <ToDoGrid />
+      {winner && <WinnerText />}
+      {FullHouseWinner && <WinnerText />}
     </View>
+  );
+}
+
+export default function App() {
+  return (
+    <GameProvider>
+      <AppContent />
+    </GameProvider>
   );
 }
 

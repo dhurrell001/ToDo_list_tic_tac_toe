@@ -1,30 +1,32 @@
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { GameProvider } from "./contexts/GameContext";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import InstructionsPage from "./pages/InstructionsPage";
+import SettingsPage from "./pages/SettingsPage";
 
-import ToDoGrid from "./components/toDoGrid";
-import Header from "./components/header";
-import WinnerText from "./components/winnerText";
-import { GameProvider, GameContext } from "./contexts/GameContext";
-import { useContext } from "react";
-
-// Function to create app content, This allows the component
-// to be simply wrapped in GameProvider wrapper below
-function AppContent() {
-  const { winner, FullHouseWinner } = useContext(GameContext);
-
-  return (
-    <View style={styles.container}>
-      <Header />
-      <ToDoGrid />
-      {winner && <WinnerText />}
-      {FullHouseWinner && <WinnerText />}
-    </View>
-  );
-}
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
     <GameProvider>
-      <AppContent />
+      <NavigationContainer>
+        <Drawer.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: "darkslategrey" },
+            headerTintColor: "#fff",
+            drawerStyle: { backgroundColor: "#f0f0f0", width: 240 },
+          }}
+        >
+          <Drawer.Screen name="Home" component={HomePage} />
+          <Drawer.Screen name="About" component={AboutPage} />
+          <Drawer.Screen name="Instructions" component={InstructionsPage} />
+          <Drawer.Screen name="Settings" component={SettingsPage} />
+        </Drawer.Navigator>
+      </NavigationContainer>
     </GameProvider>
   );
 }

@@ -7,7 +7,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import InstructionsPage from "./pages/InstructionsPage";
 import SettingsPage from "./pages/SettingsPage";
-
+import WinnerPage from "./pages/WinnerPage";
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -16,7 +16,7 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
-            headerStyle: { backgroundColor: "darkslategrey" },
+            headerStyle: { backgroundColor: "midnightblue" },
             headerTintColor: "#fff",
             drawerStyle: { backgroundColor: "#f0f0f0", width: 240 },
           }}
@@ -25,6 +25,11 @@ export default function App() {
           <Drawer.Screen name="About" component={AboutPage} />
           <Drawer.Screen name="Instructions" component={InstructionsPage} />
           <Drawer.Screen name="Settings" component={SettingsPage} />
+          <Drawer.Screen
+            name="Winner"
+            component={WinnerPage}
+            options={{ drawerItemStyle: { display: "none" } }}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     </GameProvider>

@@ -41,6 +41,7 @@ export default function GameLogic() {
       // Check for fullhouse
       if (fullHouse) {
         setFullHouseWinner(true);
+        setWinner(false);
 
         return;
       }

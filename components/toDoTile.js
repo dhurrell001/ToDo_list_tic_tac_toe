@@ -7,7 +7,12 @@ import { useState } from "react";
 export default function ToDoTile({ id, text, handlePress, pressed }) {
   return (
     <Pressable
-      style={[styles.tile, { backgroundColor: pressed ? "#ff6347" : "gold" }]}
+      style={[
+        styles.tile,
+        {
+          backgroundColor: pressed ? "rgb(255, 125, 0)" : "rgb(255, 236, 209)",
+        },
+      ]}
       onPress={handlePress}
     >
       <Text style={styles.text}>{text}</Text>

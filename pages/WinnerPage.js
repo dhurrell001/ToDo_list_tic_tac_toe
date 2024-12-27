@@ -30,8 +30,14 @@ export default function WinnerPage({ navigation }) {
   // Declare states.
   const [showConfetti, setShowConfetti] = useState(false);
   const [selectedQuote, setSelectedQuote] = useState("");
-  const { winner, FullHouseWinner } = useContext(GameContext);
-
+  const { winner, FullHouseWinner, setFullHouseWinner, setWinner } =
+    useContext(GameContext);
+  console.log("full house winner =", FullHouseWinner);
+  console.log("Winner =", winner);
+  // Reset the FullHouseWinner state using useEffect
+  useEffect(() => {
+    setFullHouseWinner(false);
+  }, [setFullHouseWinner]);
   // Use focus to trigger confettii everytime the winnerPage is in focus. Select a new quote
   // each time.
   useFocusEffect(
@@ -73,7 +79,7 @@ export default function WinnerPage({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "midnightblue",
+    backgroundColor: "rgb(21, 97, 109)",
     alignItems: "center", // Center content horizontally
     justifyContent: "top", // Center content vertically
     paddingLeft: 10,

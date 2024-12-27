@@ -20,7 +20,7 @@ export default function Header() {
 const styles = StyleSheet.create({
   container: {
     marginTop: "30",
-    backgroundColor: "midnightblue",
+    backgroundColor: "rgb(21, 97, 109)",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 35,
-    color: "red",
+    color: "white",
   },
   paragraph: {
     fontSize: "18",
     paddingTop: "25",
     paddingBottom: 20,
-    color: "white",
+    color: "rgb(255, 236, 209)",
   },
 });

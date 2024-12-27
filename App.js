@@ -16,7 +16,7 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           screenOptions={{
-            headerStyle: { backgroundColor: "midnightblue" },
+            headerStyle: { backgroundColor: "rgb(21, 97, 109)" },
             headerTintColor: "#fff",
             drawerStyle: { backgroundColor: "#f0f0f0", width: 240 },
           }}
@@ -39,7 +39,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "darkslategrey",
+    backgroundColor: "rgb(42, 157, 143)",
     paddingLeft: 10,
     paddingRight: 10,
   },

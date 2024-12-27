@@ -1,9 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import ToDoTile from "./toDoTile";
 import { useContext, useState, useEffect } from "react";
 import GameLogic from "./GameLogic"; // Import GameLogic component
 import { GameContext } from "../contexts/GameContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ToDoGrid() {
   const {
@@ -14,19 +15,6 @@ export default function ToDoGrid() {
     setSelectedTasks,
     selectedTasks,
   } = useContext(GameContext);
-
-  // Initialize tiles with id, text content and 'pressed' state
-  // const [tiles, setTiles] = useState([
-  //   { id: "1", text: "Washing up", pressed: false },
-  //   { id: "2", text: "Brush teeth twice", pressed: false },
-  //   { id: "3", text: "Fold clothes 20 min", pressed: false },
-  //   { id: "4", text: "Eat Breakfast", pressed: false },
-  //   { id: "5", text: "Exercise 20 mins", pressed: false },
-  //   { id: "6", text: "Watch a Movie", pressed: false },
-  //   { id: "7", text: "Relax 30 mins", pressed: false },
-  //   { id: "8", text: "No phone 1 hour", pressed: false },
-  //   { id: "9", text: "Sing a song!", pressed: false },
-  // ]);
 
   const todoTaskLists = [
     [
@@ -65,26 +53,54 @@ export default function ToDoGrid() {
     ],
   ];
 
-  // const [selectedTasks, setSelectedTasks] = useState([]);
-  // console.log(`selected tasks :${selectedTasks}`);
-  useEffect(() => {
-    // Randomly select a task list. Then map the list using random number as
-    // its index to the selected task state, adding the booleon pressed parameter
+  // Function to save current tile state
+  const saveTasks = async (tasks) => {
+    try {
+      await AsyncStorage.setItem("tasks", JSON.stringify(tasks));
+    } catch (error) {
+      console.error("Error saving tasks :", error);
+    }
+  };
 
-    const randomNumber = Math.floor(Math.random() * todoTaskLists.length);
-    console.log(`number ${randomNumber}`);
-    setSelectedTasks(
-      todoTaskLists[randomNumber].map((task) => ({ ...task, pressed: false }))
-    );
+  const loadTasks = async () => {
+    try {
+      const savedTasks = await AsyncStorage.getItem("tasks");
+
+      if (savedTasks !== null && JSON.parse(savedTasks).length > 0) {
+        setSelectedTasks(JSON.parse(savedTasks));
+        console.log("Tasks loaded successfully.");
+      } else {
+        // If no tasks are saved, initialize with random list
+        const randomNumber = Math.floor(Math.random() * todoTaskLists.length);
+        const initialTasks = todoTaskLists[randomNumber].map((task) => ({
+          ...task,
+          pressed: false,
+        }));
+        setSelectedTasks(initialTasks);
+      }
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+    }
+  };
+
+  // Load tasks when the component mounts
+  useEffect(() => {
+    loadTasks();
   }, []);
-  // Function to toggle the pressed state of a tile. This
-  // function is passed to each tile on creation
+
+  // Save tasks whenever selectedTasks changes
+  useEffect(() => {
+    if (selectedTasks.length > 0) {
+      saveTasks(selectedTasks);
+    }
+  }, [selectedTasks]);
+
   const togglePressed = (id) => {
     const updatedTasks = selectedTasks.map((tile) =>
       tile.id === id ? { ...tile, pressed: !tile.pressed } : tile
     );
 
-    // console.log("Updated Tasks:", updatedTasks);
+    console.log("Updated Tasks:", updatedTasks.pressed);
     setSelectedTasks(updatedTasks);
   };
 
@@ -110,7 +126,7 @@ export default function ToDoGrid() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "midnightblue",
+    backgroundColor: "rgb(21, 97, 109)",
     flexWrap: "wrap",
     flexDirection: "row",
     alignContent: "flex-start",

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import WinnerText from "./winnerText";
 import { GameContext } from "../contexts/GameContext";
@@ -10,10 +10,20 @@ export default function GameLogic() {
     winner,
     FullHouseWinner,
     setFullHouseWinner,
+    setSelectedTasks,
 
     setTiles,
   } = useContext(GameContext);
 
+  // Function to reset the task list
+  const resetTaskList = useCallback(() => {
+    console.log("Resetting task list...");
+    const Tasklist = selectedTasks.map((task) => ({
+      ...task,
+      pressed: false,
+    }));
+    setSelectedTasks(Tasklist);
+  }, [selectedTasks, setSelectedTasks]);
   // Effect that runs when the tiles state changes
 
   useEffect(() => {
@@ -42,6 +52,8 @@ export default function GameLogic() {
       if (fullHouse) {
         setFullHouseWinner(true);
         setWinner(false);
+        console.log("inside fullhouse win check");
+        resetTaskList();
 
         return;
       }

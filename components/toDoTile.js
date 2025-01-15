@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     width: "30%",
-    height: "25%",
+    height: "30%",
     alignItems: "center", // Centers the text inside the tile
     justifyContent: "center", // Centers the content vertically
+    textAlign: "justify",
   },
   text: {
     fontSize: 16,

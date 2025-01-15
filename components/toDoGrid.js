@@ -126,6 +126,7 @@ export default function ToDoGrid() {
 
 const styles = StyleSheet.create({
   container: {
+    height: "50%",
     backgroundColor: "rgb(21, 97, 109)",
     flexWrap: "wrap",
     flexDirection: "row",

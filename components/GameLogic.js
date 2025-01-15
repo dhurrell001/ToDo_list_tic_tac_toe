@@ -14,8 +14,8 @@ export default function GameLogic() {
 
     setTiles,
   } = useContext(GameContext);
-
-  // Function to reset the task list
+  const [previousWins, setPreviousWins] = useState([]);
+  // Function to reset the task list tiles back to unpressed state
   const resetTaskList = useCallback(() => {
     console.log("Resetting task list...");
     const Tasklist = selectedTasks.map((task) => ({
@@ -23,6 +23,9 @@ export default function GameLogic() {
       pressed: false,
     }));
     setSelectedTasks(Tasklist);
+    setPreviousWins([]);
+    // setWinner(false);
+    // setFullHouseWinner(false);
   }, [selectedTasks, setSelectedTasks]);
   // Effect that runs when the tiles state changes
 
@@ -73,6 +76,15 @@ export default function GameLogic() {
 
           return; // Exit early once a winning condition is met
         }
+        // if (
+        //   pressedTiles &&
+        //   !previousWins.some((win) => win.join() === combination.join())
+        // ) {
+        //   console.log("New win detected!", combination);
+        //   setWinner(true);
+        //   setPreviousWins((prev) => [...prev, combination]);
+        //   return; // Exit after celebrating the first new win
+        // }
       }
 
       setWinner(false); // If no win condition are met set wiiner to false
